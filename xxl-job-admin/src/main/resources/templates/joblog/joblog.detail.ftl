@@ -48,7 +48,6 @@
             <pre style="font-size:12px;position:relative;" >
                 <div id="logConsole"></div>
                 <li class="fa fa-refresh fa-spin" style="font-size: 20px;float: left;" id="logConsoleRunning" ></li>
-                <div><hr><hr></div>
             </pre>
         </section>
     </div>
@@ -63,7 +62,7 @@
     // 参数
     var triggerCode = '${triggerCode}';
     var handleCode = '${handleCode}';
-    var executorAddress = '${executorAddress}';
+    var executorAddress = '${executorAddress!}';
     var triggerTime = '${triggerTime?c}';
     var logId = '${logId}';
 </script>

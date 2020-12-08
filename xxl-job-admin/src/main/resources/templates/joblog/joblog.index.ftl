@@ -4,9 +4,9 @@
   	<#import "../common/common.macro.ftl" as netCommon>
 	<@netCommon.commonStyle />
 	<!-- DataTables -->
-  	<link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/datatables/dataTables.bootstrap.css">
+  	<link rel="stylesheet" href="${request.contextPath}/static/adminlte/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   	<!-- daterangepicker -->
-  	<link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/daterangepicker/daterangepicker.css">
+  	<link rel="stylesheet" href="${request.contextPath}/static/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.css">
     <title>${I18n.admin_name}</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini <#if cookieMap?exists && cookieMap["xxljob_adminlte_settings"]?exists && "off" == cookieMap["xxljob_adminlte_settings"].value >sidebar-collapse</#if> ">
@@ -30,7 +30,9 @@
  					<div class="input-group">
 	                	<span class="input-group-addon">${I18n.jobinfo_field_jobgroup}</span>
                 		<select class="form-control" id="jobGroup"  paramVal="<#if jobInfo?exists>${jobInfo.jobGroup}</#if>" >
-                            <option value="0" >${I18n.system_all}</option>
+                            <#if Request["XXL_JOB_LOGIN_IDENTITY"].role == 1>
+                                <option value="0" >${I18n.system_all}</option>  <#-- 仅管理员支持查询全部；普通用户仅支持查询有权限的 jobGroup -->
+                            </#if>
                 			<#list JobGroupList as group>
                 				<option value="${group.id}" >${group.title}</option>
                 			</#list>
@@ -72,7 +74,7 @@
                 </div>
 
 	            <div class="col-xs-1">
-                    <button class="btn btn-block btn-nomal" id="clearLog">${I18n.joblog_clean}</button>
+                    <button class="btn btn-block btn-default" id="clearLog">${I18n.joblog_clean}</button>
 	            </div>
           	</div>
 			
@@ -121,7 +123,7 @@
             <div class="modal-body">
                 <form class="form-horizontal form" role="form" >
                     <div class="form-group">
-                        <label class="col-sm-3 control-label"">${I18n.jobinfo_field_jobgroup}：</label>
+                        <label class="col-sm-3 control-label">${I18n.jobinfo_field_jobgroup}：</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control jobGroupText" readonly >
 							<input type="hidden" name="jobGroup" >
@@ -129,7 +131,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label"">${I18n.jobinfo_job}：</label>
+                        <label class="col-sm-3 control-label">${I18n.jobinfo_job}：</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control jobIdText" readonly >
                             <input type="hidden" name="jobId" >
@@ -137,7 +139,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-3 control-label"">${I18n.joblog_clean_type}：</label>
+                        <label class="col-sm-3 control-label">${I18n.joblog_clean_type}：</label>
                         <div class="col-sm-9">
                             <select class="form-control" name="type" >
                                 <option value="1" >${I18n.joblog_clean_type_1}</option>
@@ -168,11 +170,11 @@
 
 <@netCommon.commonScript />
 <!-- DataTables -->
-<script src="${request.contextPath}/static/adminlte/plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="${request.contextPath}/static/adminlte/plugins/datatables/dataTables.bootstrap.min.js"></script>
+<script src="${request.contextPath}/static/adminlte/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="${request.contextPath}/static/adminlte/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <!-- daterangepicker -->
-<script src="${request.contextPath}/static/adminlte/plugins/daterangepicker/moment.min.js"></script>
-<script src="${request.contextPath}/static/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
+<script src="${request.contextPath}/static/adminlte/bower_components/moment/moment.min.js"></script>
+<script src="${request.contextPath}/static/adminlte/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
 <script src="${request.contextPath}/static/js/joblog.index.1.js"></script>
 </body>
 </html>
